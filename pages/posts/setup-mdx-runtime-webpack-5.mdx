@@ -1,0 +1,19 @@
+# Setting up mdx runtime on Webpack 5
+
+I was running into some problems when trying to run
+@mdx-js/runtime on Next.js
+
+I needed to configure next.config.js to ignore fs module
+
+    module.exports = {
+      reactStrictMode: true,
+      webpack: (config, { isServer }) => {
+        if (!isServer) {
+          config.resolve.fallback = {
+            ...config.resolve.fallback,
+            fs: false,
+          };
+        }
+        return config;
+      },
+    };
